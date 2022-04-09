@@ -1,6 +1,6 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: Logspout addon
-version: "0.0.4"
+version: "1.0.0"
 slug: logspout
 description: "Logspout addon for sending HA logs to remote logging systems."
 url: "https://github.com/bertbaron/hassio-addons/tree/main/logspout"
