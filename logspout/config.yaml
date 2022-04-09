@@ -28,4 +28,4 @@ schema:
     - name: str
       value: str
 
-# image: "ghcr.io/home-assistant/{arch}-addon-example"
+image: "ghcr.io/bertbaron/{arch}-addon-logspout"
