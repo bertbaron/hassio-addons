@@ -1,0 +1,30 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start the example service
+# s6-overlay docs: https://github.com/just-containers/s6-overlay
+# ==============================================================================
+
+export ROUTESPATH=/data/routes
+
+if [[ ! -S /run/docker.sock ]]; then
+    bashio::log.error "Docker socket not found, please disable protection mode on the information screen of this plugin"
+    exit 1
+fi
+
+declare routes
+routes=$(jq -r '.routes | join(",")' /data/options.json)
+bashio::log.info "Routes $routes"
+
+if bashio::config.exists 'env'; then
+    while IFS=, read -r key value ; do
+        if [[ ! -z "$key" ]]; then
+            bashio::log.info "$key=$value"
+            declare "$key"="$value"
+            export $key
+        fi
+    done <<< $(jq -cr '.env[] | .name + "," + .value' /data/options.json)
+else
+    echo "No environment variables defined"
+fi
+
+exec /logspout "$routes"

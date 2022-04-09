@@ -1,6 +1,9 @@
-# Home Assistant Add-on: Example add-on
+# Home Assistant Add-on: Logspout add-on
 
-_Example add-on to use as a blueprint for new add-ons._
+_Send HA logging to a remote logging system._
+
+Addon providing [Logspout](https://github.com/gliderlabs/logspout)
+This image contains the [GELF module](github.com/micahhausler/logspout-gelf)
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]

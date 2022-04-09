@@ -1,0 +1,31 @@
+# https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
+name: Logspout addon
+version: "0.0.4"
+slug: logspout
+description: "Logspout addon for sending HA logs to remote logging systems."
+url: "https://github.com/bertbaron/hassio-addons/tree/main/logspout"
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+init: false
+startup: system
+advanced: true
+docker_api: true
+
+options:
+  routes:
+    - gelf://graylog.local:12201
+  env:
+    - name: SYSLOG_HOSTNAME
+      value: homeassistant
+schema:
+  routes:
+    - str
+  env:
+    - name: str
+      value: str
+
+# image: "ghcr.io/home-assistant/{arch}-addon-example"
