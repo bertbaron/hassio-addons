@@ -2,7 +2,7 @@
 
 ![update-badge](https://img.shields.io/github/last-commit/bertbaron/hassio-addons?label=last%20update)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9c6cf10bdbba45ecb202d7f579b5be0e)](https://www.codacy.com/gh/bertbaron/hassio-addons/dashboard?utm_source=github.com&utm_medium=referral&utm_content=bertbaron/hassio-addons&utm_campaign=Badge_Grade)
-[![GitHub Super-Linter](https://github.com/bertbaron/hassio-addons/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![GitHub Super-Linter](https://github.com/bertbaron/hassio-addons/workflows/Lint/badge.svg)](https://github.com/marketplace/actions/super-linter)
 [![Builder](https://github.com/bertbaron/hassio-addons/workflows/Builder/badge.svg)](https://github.com/bertbaron/hassio-addons/actions/workflows/builder.yaml)
 
 ## Installation
