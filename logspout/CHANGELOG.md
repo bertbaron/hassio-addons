@@ -1,5 +1,9 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.1.0
+
+Forked and updated `logspout-gelf` so that resolves the hostname just like the `syslog` module
+
 ## 1.0.1
 
 - Documentation

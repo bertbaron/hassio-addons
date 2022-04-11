@@ -1,7 +1,6 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.14
 
 FROM golang:1.18.0-alpine3.15 as build
-MAINTAINER bertusbaron@gmail.com
 LABEL maintainer "bertusbaron@gmail.com"
 ENV LOGSPOUT_VERSION=3.2.14
 ENV LOGSPOUT_DOWNLOAD_SHA256=e921ab43b6fe9bb256a588dd118d5a4e060332807344e2d47228312b2f577857
@@ -19,16 +18,11 @@ RUN curl -fSL -o logspout.tar.gz "https://github.com/gliderlabs/logspout/archive
     && mv logspout-${LOGSPOUT_VERSION} /go/src/github.com/gliderlabs/logspout
 
 WORKDIR /go/src/github.com/gliderlabs/logspout
-RUN echo 'import ( _ "github.com/micahhausler/logspout-gelf" )' >> /go/src/github.com/gliderlabs/logspout/modules.go
+RUN echo 'import ( _ "github.com/bertbaron/logspout-gelf" )' >> /go/src/github.com/gliderlabs/logspout/modules.go
 RUN go get -d -v ./...
 RUN go build -v -ldflags "-X main.Version=$(cat VERSION)" -o /go/bin/logspout
 
 FROM $BUILD_FROM
 COPY --from=build /go/bin/logspout /logspout
 
-# Copy root filesystem
 COPY rootfs /
-
-# COPY run.sh /
-# RUN chmod a+x /run.sh
-# CMD [ "/run.sh" ]
