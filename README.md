@@ -5,7 +5,7 @@
 [![GitHub Super-Linter](https://github.com/bertbaron/hassio-addons/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 [![Builder](https://github.com/bertbaron/hassio-addons/workflows/Builder/badge.svg)](https://github.com/bertbaron/hassio-addons/actions/workflows/builder.yaml)
 
-Installation
+## Installation
 
 Follow [the official instructions](https://www.home-assistant.io/common-tasks/os#installing-third-party-add-ons) on the website of Home Assistant, and use the following URL:
 

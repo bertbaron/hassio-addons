@@ -1,9 +1,8 @@
 # Home Assistant Add-on: Logspout add-on
 
-_Send HA logging to a remote logging system._
+_Send HA logging to a remote log management systems._
 
-Addon providing [Logspout](https://github.com/gliderlabs/logspout).
-This image contains the [GELF module](github.com/micahhausler/logspout-gelf)
+Addon providing [Logspout](https://github.com/gliderlabs/logspout), including the [GELF module](https://github.com/micahhausler/logspout-gelf)
 
 # Installation
 
@@ -29,6 +28,6 @@ env:
     value: homeassistant
 ```      
 
-This will send all logging using GELF to the server at `graylog.local` on port `12201` (UDP). The `source` field in graylog will be set to `homeassistant`.
+This will send all logging using GELF to the server at `graylog.local` on port `12201` (UDP). The `source` field in Graylog will be set to `homeassistant`.
 
-The list of routes is joined with `,` and passed as argument to `logspout`. The `env` list can be used to set environment variables passed to `logspout`. Please consult the documentation of [Logspout](https://github.com/gliderlabs/logspout) and the [GELF module](github.com/micahhausler/logspout-gelf) module for more information.
+The list of routes is joined with `,` and passed as argument to `logspout`. The `env` list can be used to set environment variables passed to `logspout`. Please consult the documentation of [Logspout](https://github.com/gliderlabs/logspout) and the [GELF module](https://github.com/micahhausler/logspout-gelf) module for more information.

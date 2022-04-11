@@ -2,7 +2,7 @@
 name: Logspout addon
 version: "1.0.1"
 slug: logspout
-description: "Logspout addon for sending HA logs to remote logging systems."
+description: "Send HA logging to a remote log management systems."
 url: "https://github.com/bertbaron/hassio-addons/tree/main/logspout"
 arch:
   - armhf
