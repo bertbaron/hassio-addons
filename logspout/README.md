@@ -13,7 +13,7 @@ Addon providing [Logspout](https://github.com/gliderlabs/logspout), including th
 1. Disable 'protection mode' (lowest toggle on the Information tab)
 1. Review the configuration (on the Configuration tab)
 1. Start the add-on
-1. Verify in the log output on the Log tab
+1. Verify the log output on the Log tab
 
 # Configuration
 
