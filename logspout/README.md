@@ -2,7 +2,7 @@
 
 _Send HA logging to a remote log management systems._
 
-Addon providing [Logspout](https://github.com/gliderlabs/logspout), including the [GELF module](https://github.com/micahhausler/logspout-gelf)
+Addon providing [Logspout](https://github.com/gliderlabs/logspout), including the [GELF module](https://github.com/bertbaron/logspout-gelf)
 
 # Installation
 
@@ -12,7 +12,7 @@ Addon providing [Logspout](https://github.com/gliderlabs/logspout), including th
 1. Disable 'protection mode' (lowest toggle on the Information tab)
 1. Review the configuration (on the Configuration tab)
 1. Start the add-on
-1. Verify in the log output on the Log tab
+1. Verify the log output on the Log tab
 
 # Configuration
 
@@ -30,7 +30,7 @@ env:
 
 This will send all logging using GELF to the server at `graylog.local` on port `12201` (UDP). The `source` field in Graylog will be set to `homeassistant`.
 
-The list of routes is joined with `,` and passed as argument to `logspout`. The `env` list can be used to set environment variables passed to `logspout`. Please consult the documentation of [Logspout](https://github.com/gliderlabs/logspout) and the [GELF module](https://github.com/micahhausler/logspout-gelf) module for more information.
+The list of routes is joined with `,` and passed as argument to `logspout`. The `env` list can be used to set environment variables passed to `logspout`. Please consult the documentation of [Logspout](https://github.com/gliderlabs/logspout) and the [GELF module](https://github.com/bertbaron/logspout-gelf) module for more information.
 
 # More information
 
