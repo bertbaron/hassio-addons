@@ -7,8 +7,7 @@
 export ROUTESPATH=/data/routes
 
 if [[ ! -S /run/docker.sock ]]; then
-    bashio::log.error "Docker socket not found, please disable protection mode on the information screen of this plugin"
-    exit 1
+    bashio::exit.nok "Docker socket not found, please disable protection mode on the information screen of this plugin"
 fi
 
 declare routes
