@@ -4,7 +4,7 @@ _Send HA logging to remote log management systems_
 
 Add-on providing [Logspout](https://github.com/gliderlabs/logspout), including the [GELF module](https://github.com/bertbaron/logspout-gelf).
 
-Logspout collects logs using the Docker API, forwarding it to a choice of destinations using, amongst others, the syslog or GELF protocol. The destination can be for example a logging service like Papertrail or Loggly, or a local running Elasticsearch or Graylog instance.
+Logspout collects logs using the Docker API, forwarding them to a choice of destinations using, amongst others, the syslog or GELF protocol. The destination can be for example a logging service like Papertrail or Loggly, or a local running Elasticsearch or Graylog instance.
 
 Because Logspout requires access to the Docker API, protection mode has to be disabled. Access to the Docker API virtually gives access to the whole system, resulting in a rating of 1 for this add-on. Logspout only uses the API to read container properties and the stdout/stderr output of the containers.
 
