@@ -1,5 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.2.0
+
+- Mount config folder 
+- Document usage of custom TLS certificates
+
 ## 1.1.1
 
 - Documentation updates
