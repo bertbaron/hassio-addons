@@ -20,7 +20,7 @@ Because Logspout requires access to the Docker API, protection mode has to be di
 
 # Configuration
 
-See the [Add-on documentation](./DOCS.md) for more information.
+See the Documentation tab for for more information.
 
 # More information
 
