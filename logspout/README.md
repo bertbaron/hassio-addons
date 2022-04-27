@@ -1,8 +1,12 @@
 # Home Assistant Add-on: Logspout add-on
 
-_Send HA logging to a remote log management systems._
+_Send HA logging to remote log management systems_
 
-Addon providing [Logspout](https://github.com/gliderlabs/logspout), including the [GELF module](https://github.com/bertbaron/logspout-gelf)
+Add-on providing [Logspout](https://github.com/gliderlabs/logspout), including the [GELF module](https://github.com/bertbaron/logspout-gelf).
+
+Logspout collects logs using the Docker API, forwarding it to a choice of destinations using, amongst others, the syslog or GELF protocol. The destination can be for example a logging service like Papertrail or Loggly, or a local running Elasticsearch or Graylog instance.
+
+Because Logspout requires access to the Docker API, protection mode has to be disabled. Access to the Docker API virtually gives access to the whole system, resulting in a rating of 1 for this add-on. Logspout only uses the API to read container properties and the stdout/stderr output of the containers.
 
 # Installation
 
@@ -16,21 +20,7 @@ Addon providing [Logspout](https://github.com/gliderlabs/logspout), including th
 
 # Configuration
 
-This add-on requires protection mode to be turned off in order to obtain access to the Docker API.
-
-The configuration is pretty straightforward. See for example the following configuration:
-
-```yaml
-routes:
-  - gelf://graylog.local:12201
-env:
-  - name: SYSLOG_HOSTNAME
-    value: homeassistant
-```      
-
-This will send all logging using GELF to the server at `graylog.local` on port `12201` (UDP). The `source` field in Graylog will be set to `homeassistant`.
-
-The list of routes is joined with `,` and passed as argument to `logspout`. The `env` list can be used to set environment variables passed to `logspout`. Please consult the documentation of [Logspout](https://github.com/gliderlabs/logspout) and the [GELF module](https://github.com/bertbaron/logspout-gelf) module for more information.
+See the [Add-on documentation](./DOCS.md) for more information.
 
 # More information
 
