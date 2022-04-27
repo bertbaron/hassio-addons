@@ -26,8 +26,6 @@ See the Documentation tab for for more information.
 
 The build setup is based on the [logspout-gelf](https://github.com/Vincit/logspout-gelf) container.
 
-In my blog post [Sending Home Assistant logs to Graylog](https://bertbaron.github.io/blog/tech/homeassistant-graylog/) you can find some tips to tune Graylog for HA logs and how to add it to the sidebar of HA.
-
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
 ![Supports armhf Architecture][armhf-shield]
