@@ -1,4 +1,4 @@
 # https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
-name: My Home Assistant addons
+name: Home Assistant addons by bertbaron
 url: 'https://github.com/bertbaron/hassio-addons'
 maintainer: Bert Baron <bertusbaron@gmail.com>
