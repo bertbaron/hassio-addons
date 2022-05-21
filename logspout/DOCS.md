@@ -55,5 +55,6 @@ It is also possible to specify a client key for mutual TLS client authentication
 
 # More information
 
-| **Issue tracker** | https://github.com/bertbaron/hassio-addons/issues
-| **Discussions | https://community.home-assistant.io/t/logspout-add-on-for-sending-ha-logs-to-log-management-systems/423152
+**Issue tracker** https://github.com/bertbaron/hassio-addons/issues
+
+**Discussions** https://community.home-assistant.io/t/logspout-add-on-for-sending-ha-logs-to-log-management-systems/423152
