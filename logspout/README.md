@@ -24,8 +24,8 @@ See the Documentation tab or [DOCS.md](./DOCS.md) for for more information.
 
 # More information
 
-Issue tracker: https://github.com/bertbaron/hassio-addons/issues
-Discussions: https://community.home-assistant.io/t/logspout-add-on-for-sending-ha-logs-to-log-management-systems/423152
+| **Issue tracker** | https://github.com/bertbaron/hassio-addons/issues
+| **Discussions | https://community.home-assistant.io/t/logspout-add-on-for-sending-ha-logs-to-log-management-systems/423152
 
 The build setup is based on the [logspout-gelf](https://github.com/Vincit/logspout-gelf) container.
 
