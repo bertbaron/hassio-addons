@@ -52,3 +52,8 @@ env:
 ```      
 
 It is also possible to specify a client key for mutual TLS client authentication. See the [Logspout documentation](https://github.com/gliderlabs/logspout/blob/master/README.md) for more information.
+
+# More information
+
+Issue tracker: https://github.com/bertbaron/hassio-addons/issues
+Discussions: https://community.home-assistant.io/t/logspout-add-on-for-sending-ha-logs-to-log-management-systems/423152
