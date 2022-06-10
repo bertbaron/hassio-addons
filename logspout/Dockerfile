@@ -1,7 +1,7 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.14
 
-FROM golang:1.18.0-alpine3.15 as build
-LABEL maintainer "bertusbaron@gmail.com"
+FROM golang:1.18.3-alpine3.16 as build
+LABEL maintainer = "bertusbaron@gmail.com"
 ENV LOGSPOUT_VERSION=3.2.14
 ENV LOGSPOUT_DOWNLOAD_SHA256=e921ab43b6fe9bb256a588dd118d5a4e060332807344e2d47228312b2f577857
 RUN mkdir -p /go/src
