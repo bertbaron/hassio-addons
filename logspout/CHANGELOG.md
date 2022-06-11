@@ -11,6 +11,9 @@
  - ⬆️ Update Golang builder image to 1.18.3-alpine3.16
  - ⬆️ Update github workflow dependencies
 
+### 🧰 Maintenance
+ - 🧰 Staring with CMD instead of s6 service
+
 ## 1.2.0
 
 - Mount config folder 

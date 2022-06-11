@@ -26,3 +26,4 @@ FROM $BUILD_FROM
 COPY --from=build /go/bin/logspout /logspout
 
 COPY rootfs /
+CMD ["/start"]
