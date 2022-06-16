@@ -1,5 +1,13 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.3.0
+
+### 🚀 New features
+ - 🚀 Added loki adapter
+
+### 🔨 Small changes
+ - 🔨 Set SYSLOG_HOSTNAME to `homeassistant` by default
+
 ## 1.2.1
 
 ### 📚 Documentation updates
