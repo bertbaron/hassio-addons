@@ -46,7 +46,7 @@ These are some example routes to get you started:
  * Graylog (GELF): `gelf://<graylog_host>:12201`
  * Syslog UDP: `syslog+udp://<syslog_host>:514`
  * Papertrail: `syslog+tls://logs3.papertrailapp.com:12345`
- * Loki: `loki://39bd2704-loki:3100` (setup for the [Loki addon](`https://github.com/mdegat01/addon-loki`))
+ * Loki: `loki://39bd2704-loki:3100` (setup for the [Loki addon](https://github.com/mdegat01/addon-loki))
 
 Please consult the documentation of [Logspout](https://github.com/gliderlabs/logspout) and the [GELF module](https://github.com/bertbaron/logspout-gelf) module for more information.
 
