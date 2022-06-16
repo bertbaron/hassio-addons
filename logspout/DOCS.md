@@ -2,7 +2,7 @@
 
 _Send HA logging to remote log management systems_
 
-Add-on providing [Logspout](https://github.com/gliderlabs/logspout), including the [GELF module](https://github.com/bertbaron/logspout-gelf).
+Add-on providing [Logspout](https://github.com/gliderlabs/logspout), including the [GELF adapter](https://github.com/bertbaron/logspout-gelf) and a Loki adapter.
 
 Logspout collects logs using the Docker API, forwarding it to a choice of destinations using, amongst others, the syslog or GELF protocol. The destination can be for example a logging service like Papertrail or Loggly, or a local running Elasticsearch or Graylog instance.
 
@@ -37,8 +37,18 @@ env:
 
 This will send all logging using GELF to the server at `graylog.local` on port `12201` (UDP). The `source` field in Graylog will be set to `homeassistant`.
 
-The list of routes is joined with `,` and passed as argument to `logspout`. The `env` list can be used to set environment variables passed to `logspout`. Please consult the documentation of [Logspout](https://github.com/gliderlabs/logspout) and the [GELF module](https://github.com/bertbaron/logspout-gelf) module for more information.
+The list of routes is joined with `,` and passed as argument to `logspout`. The `env` list can be used to set environment variables passed to `logspout`.
 
+## Example routes
+
+These are some example routes to get you started:
+
+ * Graylog (GELF): `gelf://<graylog_host>:12201`
+ * Syslog UDP: `syslog+udp://<syslog_host>:514`
+ * Papertrail: `syslog+tls://logs3.papertrailapp.com:12345`
+ * Loki: `loki://39bd2704-loki:3100` (setup for the [Loki addon](`https://github.com/mdegat01/addon-loki`))
+
+Please consult the documentation of [Logspout](https://github.com/gliderlabs/logspout) and the [GELF module](https://github.com/bertbaron/logspout-gelf) module for more information.
 
 # Custom TLS certificate
 

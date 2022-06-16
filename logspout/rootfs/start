@@ -14,6 +14,8 @@ declare routes
 routes=$(jq -r '.routes | join(",")' /data/options.json)
 bashio::log.info "Routes $routes"
 
+export SYSLOG_HOSTNAME=homeassistant
+
 if bashio::config.exists 'env'; then
     while IFS=, read -r key value ; do
         if [[ ! -z "$key" ]]; then
@@ -22,8 +24,6 @@ if bashio::config.exists 'env'; then
             export $key
         fi
     done <<< $(jq -cr '.env[] | .name + "," + .value' /data/options.json)
-else
-    echo "No environment variables defined"
 fi
 
 exec /logspout "$routes"
