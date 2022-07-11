@@ -21,15 +21,11 @@ map:
 
 options:
   routes:
-    - gelf://graylog.local:12201
-  env:
-    - name: SYSLOG_HOSTNAME
-      value: homeassistant
-    - name: INACTIVITY_TIMEOUT
-      value: 1m
+    - gelf://graylog.home:12201
 schema:
   routes:
-    - str
+    - str?
+  hostname: str?
   env:
     - name: str
       value: str

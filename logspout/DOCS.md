@@ -29,19 +29,16 @@ The configuration is pretty straightforward. See for example the following confi
 
 ```yaml
 routes:
-  - gelf://graylog.local:12201
-env:
-  - name: SYSLOG_HOSTNAME
-    value: homeassistant
+  - gelf://graylog.home:12201
+hostname: homeassistant
 ```      
 
-This will send all logging using GELF to the server at `graylog.local` on port `12201` (UDP). The `source` field in Graylog will be set to `homeassistant`.
+This will send all logging using GELF to the server at `graylog.home` on port `12201` (UDP). The `source` field in Graylog will be set to `homeassistant`.
 
-The list of routes is joined with `,` and passed as argument to `logspout`. The `env` list can be used to set environment variables passed to `logspout`.
 
-## Example routes
+### Option: `routes`
 
-These are some example routes to get you started:
+The Logspout routes. These are some example routes to get you started:
 
  * Graylog (GELF): `gelf://<graylog_host>:12201`
  * Syslog UDP: `syslog+udp://<syslog_host>:514`
@@ -49,6 +46,20 @@ These are some example routes to get you started:
  * Loki: `loki://39bd2704-loki:3100` (setup for the [Loki addon](https://github.com/mdegat01/addon-loki))
 
 Please consult the documentation of [Logspout](https://github.com/gliderlabs/logspout) and the [GELF module](https://github.com/bertbaron/logspout-gelf) module for more information.
+
+### Option `hostname`
+
+The hostname that will be send as part of the logs. Default is `homeassistant`.
+
+### Option `env`
+
+Envirionment variables passed to Logspout when more advanced options are needed which are not (yet) available as add-on options. For example:
+
+```yaml
+env:
+  - name: SYSLOG_FORMAT
+    value: rfc3164
+```
 
 # Custom TLS certificate
 

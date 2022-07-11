@@ -1,5 +1,17 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.4.0
+
+### Config
+ - Added `hostname` option
+ - Default of 5m for inactivity timeout (not sure if its needed but it doesn't hurt)
+
+### 🛠 Change in build setup
+ - 🛠 Logspout is now build from a [forked repository](https://github.com/bertbaron/logspout). This simplifies the build and, more importantly, makes it easier to apply some patches specifically for this add-on
+
+### ⬆️ Dependency updates
+ - ⬆️ Update github workflow dependencies
+
 ## 1.3.0
 
 ### 🚀 New features
