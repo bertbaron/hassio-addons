@@ -22,6 +22,7 @@ map:
 options:
   routes:
     - gelf://graylog.home:12201
+  env: []
 schema:
   routes:
     - str?
