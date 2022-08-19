@@ -11,10 +11,17 @@ if [[ ! -S /run/docker.sock ]]; then
 fi
 
 declare routes
-routes=$(jq -r '.routes | join(",")' /data/options.json)
-bashio::log.info "Routes $routes"
 
-export SYSLOG_HOSTNAME=homeassistant
+# mock call to supervisor to get the addon config when testing locally
+# function bashio::addon.config() {
+#     cat /data/options.json
+# }
+
+routes=$(jq -r '.routes | join(",")' /data/options.json)
+bashio::log.info "Routes: $routes"
+
+export SYSLOG_HOSTNAME=$(bashio::config 'hostname' 'homeassistant')
+export INACTIVITY_TIMEOUT=5m
 
 if bashio::config.exists 'env'; then
     while IFS=, read -r key value ; do
