@@ -1,5 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.4.1
+
+### ⬆️ Dependency updates
+ - ⬆️ Updates github workflow dependencies (dependabot)
+
 ## 1.4.0
 
 ### 🔨 Config
