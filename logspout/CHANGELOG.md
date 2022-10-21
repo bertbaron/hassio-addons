@@ -4,6 +4,7 @@
 
 ### ⬆️ Dependency updates
  - ⬆️ Updates github workflow dependencies (dependabot)
+ - ⬆️ Build with golang:1.19.2
 
 ## 1.4.0
 
