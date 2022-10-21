@@ -3,8 +3,9 @@
 ## 1.4.1
 
 ### ⬆️ Dependency updates
- - ⬆️ Updates github workflow dependencies (dependabot)
+ - ⬆️ Updates to github workflow dependencies (dependabot)
  - ⬆️ Build with golang:1.19.2
+ - ⬆️ Update home-assistant base image to 3.16
 
 ## 1.4.0
 
