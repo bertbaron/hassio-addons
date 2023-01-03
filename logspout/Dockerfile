@@ -1,6 +1,6 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.16
 
-FROM golang:1.19.2 as build
+FROM golang:1.19.4 as build
 LABEL maintainer = "bertusbaron@gmail.com"
 ENV LOGSPOUT_HASSIO_VERSION='hassio-1'
 
