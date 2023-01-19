@@ -18,6 +18,7 @@ docker_api: true
 
 map:
   - config
+  - ssl
 
 options:
   routes:
