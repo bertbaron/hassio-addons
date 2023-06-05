@@ -1,5 +1,12 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.4.4
+
+### ⬆️ Dependency updates
+- ⬆️ Updates to github workflow dependencies (dependabot)
+- ⬆️ Build with golang:1.20.4
+- ⬆️ Bump base image to 3.18
+
 ## 1.4.3
 
 ### ⬆️ Dependency updates
