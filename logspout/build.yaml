@@ -1,10 +1,10 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
 build_from:
-  aarch64: "ghcr.io/home-assistant/aarch64-base:3.16"
-  amd64: "ghcr.io/home-assistant/amd64-base:3.16"
-  armhf: "ghcr.io/home-assistant/armhf-base:3.16"
-  armv7: "ghcr.io/home-assistant/armv7-base:3.16"
-  i386: "ghcr.io/home-assistant/i386-base:3.16"
+  aarch64: "ghcr.io/home-assistant/aarch64-base:3.18"
+  amd64: "ghcr.io/home-assistant/amd64-base:3.18"
+  armhf: "ghcr.io/home-assistant/armhf-base:3.18"
+  armv7: "ghcr.io/home-assistant/armv7-base:3.18"
+  i386: "ghcr.io/home-assistant/i386-base:3.18"
 labels:
   org.opencontainers.image.title: "Home Assistant Add-on: Logspout add-on"
   org.opencontainers.image.description: "Logspout addon for sending HA logs to remote logging systems."

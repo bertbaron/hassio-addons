@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.16
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.18
 
 FROM golang:1.20.2 as build
 LABEL maintainer = "bertusbaron@gmail.com"
