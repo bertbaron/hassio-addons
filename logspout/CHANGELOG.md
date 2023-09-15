@@ -7,6 +7,7 @@
 
 ### ⬆️ Dependency updates
 - ⬆️ Updates to github workflow dependencies (dependabot)
+- ⬆️ Updated workflow yaml's using the latest from home-assistant/addon-example
 
 ## 1.5.1
 
