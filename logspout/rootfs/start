@@ -18,7 +18,6 @@ declare routes
 # }
 
 routes=$(jq -r '.routes | join(",")' /data/options.json)
-bashio::log.info "Routes: $routes"
 
 export SYSLOG_HOSTNAME=$(bashio::config 'hostname' 'homeassistant')
 export INACTIVITY_TIMEOUT=5m
