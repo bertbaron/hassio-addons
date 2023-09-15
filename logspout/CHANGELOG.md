@@ -5,6 +5,9 @@
 ### ✨ New features
 - ✨ Added support for Loki with Basic Authentication and `https`, supporting Loki on grafana.com
 
+### ⬆️ Dependency updates
+- ⬆️ Updates to github workflow dependencies (dependabot)
+
 ## 1.5.1
 
 ### ⬆️ Dependency updates
