@@ -44,6 +44,10 @@ The Logspout routes. These are some example routes to get you started:
  * Syslog UDP: `syslog+udp://<syslog_host>:514`
  * Papertrail: `syslog+tls://logs3.papertrailapp.com:12345`
  * Loki: `loki://39bd2704-loki:3100` (setup for the [Loki addon](https://github.com/mdegat01/addon-loki))
+ * Loki with authentication: `loki+https://<username>:<password-or-token>@<loki-host>[/loki-path]`
+
+   To connect to Loki on grafana.com this basically means that you can prefix the URL you get to use in the Promptail configuration with `loki+`
+
 
 Please consult the documentation of [Logspout](https://github.com/gliderlabs/logspout) and the [GELF module](https://github.com/bertbaron/logspout-gelf) module for more information.
 

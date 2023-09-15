@@ -1,5 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.6.0
+
+### ✨ New features
+- ✨ Added support for Loki with Basic Authentication and `https`, supporting Loki on grafana.com
+
 ## 1.5.1
 
 ### ⬆️ Dependency updates
