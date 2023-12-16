@@ -1,5 +1,11 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.6.1
+
+### ⬆️ Dependency updates
+- ⬆️ Updates to github workflow dependencies (dependabot)
+- ⬆️ Update go to golang:1.21.5
+
 ## 1.6.0
 
 ### ✨ New features
