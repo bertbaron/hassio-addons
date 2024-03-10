@@ -2,9 +2,12 @@
 
 ## 1.6.2
 
+### 🛠 Change in build setup
+- 🛠 Build with golang alpine image because armhf build would otherwise fail with new go version
+
 ### ⬆️ Dependency updates
 - ⬆️ Updates to github workflow dependencies (dependabot)
-- ⬆️ Update go to golang:1.22.0
+- ⬆️ Update go to golang:1.22.1
 - ⬆️ Update base image to 3.19
 
 ## 1.6.1
