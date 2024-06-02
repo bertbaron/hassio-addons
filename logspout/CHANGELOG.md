@@ -3,12 +3,12 @@
 ## 1.6.3
 
 ### 🛠 Bug fixes
-- 🛠 Update go to golang:1.22.3
-- ⬆️ Updates to github workflow dependencies (dependabot)
-- ⬆️ Update base image to 3.20
+- 🛠 Fix bug with timestamps in loki adapter
 
 ### ⬆️ Dependency updates
+- ⬆️ Update go to golang:1.22.3
 - ⬆️ Updates to github workflow dependencies (dependabot)
+- ⬆️ Update base image to 3.20
 
 ## 1.6.2
 
