@@ -1,5 +1,14 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.6.3
+
+### 🛠 Bug fixes
+- 🛠 Update go to golang:1.22.3
+- ⬆️ Update base image to 3.20
+
+### ⬆️ Dependency updates
+- ⬆️ Updates to github workflow dependencies (dependabot)
+
 ## 1.6.2
 
 ### 🛠 Change in build setup
