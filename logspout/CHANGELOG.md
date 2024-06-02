@@ -4,6 +4,7 @@
 
 ### 🛠 Bug fixes
 - 🛠 Update go to golang:1.22.3
+- ⬆️ Updates to github workflow dependencies (dependabot)
 - ⬆️ Update base image to 3.20
 
 ### ⬆️ Dependency updates
