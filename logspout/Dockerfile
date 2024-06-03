@@ -1,3 +1,5 @@
+# See https://github.com/home-assistant/docker-base
+# Also update build.yaml!
 ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.20
 
 FROM golang:1.22.3-alpine3.20 AS build
