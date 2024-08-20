@@ -2,6 +2,9 @@
 
 ## 1.6.4
 
+### 🛠 Change in build setup
+- 🛠 Build with golang cross-compilation using only the amd64 image. This results in much faster builds. Without this the builds for some architectures would fail for some reason. If this version does not run on your architecture, please let me know.
+
 ### ⬆️ Dependency updates
 - ⬆️ Updates to github workflow dependencies (dependabot)
 - ⬆️ Update go to golang:1.23.0
