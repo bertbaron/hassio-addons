@@ -7,7 +7,7 @@ updates:
       interval: weekly
       time: "06:00"
   - package-ecosystem: "docker"
-    directory: "/"
+    directory: "/logspout"
     target-branch: "develop"
     schedule:
       interval: weekly
