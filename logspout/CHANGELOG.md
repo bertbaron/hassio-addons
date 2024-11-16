@@ -1,5 +1,14 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.7.0
+
+### ✨ New features
+- ✨ Added Splunk Adapter. This adapter is based on the [logspout-splunk](https://github.com/chakrabortymrinal/logspout-splunk).
+  Note that this adapter is not tested by me. Any issues can be [reported on this issue](https://github.com/bertbaron/hassio-addons/issues/68) as long as it is open. 
+
+### ⬆️ Dependency updates
+- ⬆️ Update go to golang:1.23.3
+
 ## 1.6.4
 
 ### 🛠 Change in build setup
