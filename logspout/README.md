@@ -6,6 +6,7 @@ Add-on providing [Logspout](https://github.com/gliderlabs/logspout), including t
 * [GELF](https://github.com/bertbaron/logspout-gelf)
 * Loki
 * [Logstash](https://github.com/looplab/logspout-logstash)
+* [Splunk](https://github.com/chakrabortymrinal/logspout-splunk)
 
 Logspout collects logs using the Docker API, forwarding them to a choice of destinations using, amongst others, the syslog or GELF protocol. The destination can be for example a logging service like Papertrail or Loggly, or a local running Elasticsearch or Graylog instance.
 
