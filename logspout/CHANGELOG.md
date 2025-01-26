@@ -1,5 +1,12 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.8.0
+### ✨ New features
+- ✨ Gelf TCP support
+
+### ⬆️ Dependency updates
+- ⬆️ Update go to golang:1.23.5
+
 ## 1.7.0
 
 ### ✨ New features
