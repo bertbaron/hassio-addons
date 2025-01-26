@@ -1,11 +1,12 @@
 # See https://github.com/home-assistant/docker-base
 # Also update build.yaml!
 ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.20
+ARG HOST_PLATFORM=linux/amd64
 
-FROM --platform=linux/amd64 golang:1.23.5-alpine3.20 AS build
+FROM --platform=$HOST_PLATFORM golang:1.23.5-alpine3.20 AS build
 ARG BUILD_ARCH=amd64
 LABEL maintainer="bertusbaron@gmail.com"
-ENV LOGSPOUT_HASSIO_VERSION='hassio-5'
+ENV LOGSPOUT_HASSIO_VERSION='hassio-6'
 
 WORKDIR /go/src/github.com/bertbaron/
 
