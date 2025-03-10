@@ -3,7 +3,7 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.20
 ARG HOST_PLATFORM=linux/amd64
 
-FROM --platform=$HOST_PLATFORM golang:1.24.0-alpine3.20 AS build
+FROM --platform=$HOST_PLATFORM golang:1.24.1-alpine3.20 AS build
 ARG BUILD_ARCH=amd64
 LABEL maintainer="bertusbaron@gmail.com"
 ENV LOGSPOUT_HASSIO_VERSION='hassio-6'
