@@ -47,7 +47,7 @@ The Logspout routes. These are some example routes to get you started:
  * Loki with authentication: `loki+https://<username>:<password-or-token>@<loki-host>[/loki-path]`
 
    To connect to Loki on grafana.com this basically means that you can prefix the URL you get to use in the Promptail configuration with `loki+`
-
+ * Splunk HEC: See [this issue](https://github.com/bertbaron/hassio-addons/issues/68#issuecomment-2528901821) for configuration details.
 
 Please consult the documentation of [Logspout](https://github.com/gliderlabs/logspout) and the [GELF module](https://github.com/bertbaron/logspout-gelf) module for more information.
 
