@@ -1,5 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.8.1
+### ⬆️ Dependency updates
+- ⬆️ Update go to golang:1.24.3 (dependabot)
+- ⬆️ Update github workflow dependencies (dependabot)
+
 ## 1.8.0
 ### ✨ New features
 - ✨ Gelf TCP support
