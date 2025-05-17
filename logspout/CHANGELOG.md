@@ -4,6 +4,7 @@
 ### ⬆️ Dependency updates
 - ⬆️ Update go to golang:1.24.3 (dependabot)
 - ⬆️ Update github workflow dependencies (dependabot)
+- ⬆️ Update home-assistant base image to 3.21
 
 ## 1.8.0
 ### ✨ New features
