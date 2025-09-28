@@ -27,6 +27,7 @@ schema:
   routes:
     - str?
   hostname: str?
+  strip_ansi: bool?
   env:
     - name: str
       value: str

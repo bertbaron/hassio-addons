@@ -6,7 +6,7 @@ ARG HOST_PLATFORM=linux/amd64
 FROM --platform=$HOST_PLATFORM golang:1.24.3-alpine3.20 AS build
 ARG BUILD_ARCH=amd64
 LABEL maintainer="bertusbaron@gmail.com"
-ENV LOGSPOUT_HASSIO_VERSION='hassio-6'
+ENV LOGSPOUT_HASSIO_VERSION='hassio-7'
 
 WORKDIR /go/src/github.com/bertbaron/
 
