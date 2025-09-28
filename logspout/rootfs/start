@@ -20,6 +20,12 @@ declare routes
 routes=$(jq -r '.routes | join(",")' /data/options.json)
 
 export SYSLOG_HOSTNAME=$(bashio::config 'hostname' 'homeassistant')
+
+if bashio::config.true 'strip_ansi'; then
+    export STRIP_ANSI=true
+    bashio::log.info "Stripping ANSI color codes from log output"
+fi
+
 export INACTIVITY_TIMEOUT=5m
 
 if bashio::config.exists 'env'; then
