@@ -1,9 +1,9 @@
 # See https://github.com/home-assistant/docker-base
 # Also update build.yaml!
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.21
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.22
 ARG HOST_PLATFORM=linux/amd64
 
-FROM --platform=$HOST_PLATFORM golang:1.24.3-alpine3.20 AS build
+FROM --platform=$HOST_PLATFORM golang:1.26.3-alpine3.22 AS build
 ARG BUILD_ARCH=amd64
 LABEL maintainer="bertusbaron@gmail.com"
 ENV LOGSPOUT_HASSIO_VERSION='hassio-7'
@@ -26,11 +26,8 @@ ENV GOOS=linux
 
 # Map BUILD_ARCH to GOARCH
 RUN case "${BUILD_ARCH}" in \
-      armhf) GOARCH=arm; GOARM=6 ;; \
-      armv7) GOARCH=arm; GOARM=7 ;; \
       aarch64) GOARCH=arm64 ;; \
       amd64) GOARCH=amd64 ;; \
-      i386) GOARCH=386 ;; \
       *) echo "Unsupported BUILD_ARCH: ${BUILD_ARCH}" && exit 1 ;; \
     esac && \
     echo "Building for architecture: ${GOARCH} (GOARM=$GOARM)" && \

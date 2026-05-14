@@ -1,5 +1,13 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.10.0
+### 🗑️ Removed architectures
+- 🗑️ Dropped support for armhf, armv7, and i386 architectures. Home Assistant stopped building base images for these architectures ([home-assistant/docker-base#324](https://github.com/home-assistant/docker-base/pull/324)).
+
+### ⬆️ Dependency updates
+- ⬆️ Update go to golang:1.26.3
+- ⬆️ Update home-assistant base image to Alpine 3.22
+
 ## 1.9.0
 ### ✨ New features
 - ✨ Added support for stripping ANSI color codes from log messages. This can be enabled by setting `strip_ansi: true` in the configuration.
