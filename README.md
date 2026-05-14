@@ -17,7 +17,22 @@ or use the badge below.
 
 [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fbertbaron%2Fhassio-addons)
 
-## Add-ons
+## Development / Testing
+
+If you want to test changes before they are released, you can use the edge build from
+the `develop` branch. Add the following URL as a custom repository in Home Assistant:
+
+```
+https://github.com/bertbaron/hassio-addons#develop
+```
+
+[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fbertbaron%2Fhassio-addons%23develop)
+
+The `develop` branch publishes a pre-built `edge` Docker image on every push.
+Since the version is always `edge`, Home Assistant will not automatically detect
+updates — reinstall the add-on after a new push to pick up the latest changes.
+
+
 
 This repository contains the following add-ons
 
