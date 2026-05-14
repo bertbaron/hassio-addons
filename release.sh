@@ -70,7 +70,9 @@ Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
 
 echo "==> Merging develop into main"
 git -C "$SCRIPT_DIR" checkout main
-git -C "$SCRIPT_DIR" merge develop --no-ff -m "chore: release $VERSION
+# Use -X theirs so that when main and develop have diverged (develop is source of truth),
+# conflicts are resolved by preferring develop's content.
+git -C "$SCRIPT_DIR" merge develop --no-ff -X theirs -m "chore: release $VERSION
 
 Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
 
