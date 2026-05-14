@@ -32,7 +32,21 @@ The `develop` branch publishes a pre-built `edge` Docker image on every push.
 Since the version is always `edge`, Home Assistant will not automatically detect
 updates — reinstall the add-on after a new push to pick up the latest changes.
 
+## Releasing
 
+To publish a new release:
+
+1. Add a `## X.Y.Z` section at the top of `logspout/CHANGELOG.md` on the `develop` branch.
+2. Run the release script from the repo root:
+   ```bash
+   ./release.sh X.Y.Z
+   ```
+
+The script validates the changelog, sets the version, merges `develop` → `main`, pushes
+main (triggering the CI release build), then automatically restores `develop` to the
+`edge` state.
+
+## Add-ons
 
 This repository contains the following add-ons
 
