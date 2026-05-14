@@ -17,6 +17,35 @@ or use the badge below.
 
 [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fbertbaron%2Fhassio-addons)
 
+## Development / Testing
+
+If you want to test changes before they are released, you can use the edge build from
+the `develop` branch. Add the following URL as a custom repository in Home Assistant:
+
+```
+https://github.com/bertbaron/hassio-addons#develop
+```
+
+[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fbertbaron%2Fhassio-addons%23develop)
+
+The `develop` branch publishes a pre-built `edge` Docker image on every push.
+Since the version is always `edge`, Home Assistant will not automatically detect
+updates — reinstall the add-on after a new push to pick up the latest changes.
+
+## Releasing
+
+To publish a new release:
+
+1. Add a `## X.Y.Z` section at the top of `logspout/CHANGELOG.md` on the `develop` branch.
+2. Run the release script from the repo root:
+   ```bash
+   ./release.sh X.Y.Z
+   ```
+
+The script validates the changelog, sets the version, merges `develop` → `main`, pushes
+main (triggering the CI release build), then automatically restores `develop` to the
+`edge` state.
+
 ## Add-ons
 
 This repository contains the following add-ons
@@ -25,9 +54,6 @@ This repository contains the following add-ons
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
-![Supports armhf Architecture][armhf-shield]
-![Supports armv7 Architecture][armv7-shield]
-![Supports i386 Architecture][i386-shield]
 ![privileged][privileged-shield]
 
 _Logspout  add-on for sending Home Assistant logs to remote log management systems._
@@ -52,7 +78,4 @@ Notes to developers after forking or using the github template feature:
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
-[armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
-[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
-[i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
 [privileged-shield]: https://img.shields.io/badge/privileged-required-orange.svg
