@@ -7,11 +7,14 @@ FROM --platform=$HOST_PLATFORM golang:1.26.3-alpine3.22 AS build
 ARG BUILD_ARCH=amd64
 LABEL maintainer="bertusbaron@gmail.com"
 ENV LOGSPOUT_HASSIO_VERSION='hassio-7'
+ARG LOGSPOUT_HASSIO_REF=036f18213f99a0745ddc2106fe945f3be6ab8c7c
 
 WORKDIR /go/src/github.com/bertbaron/
 
 RUN apk add --no-cache git
-RUN git clone --depth 1 https://github.com/bertbaron/logspout.git -b ${LOGSPOUT_HASSIO_VERSION}
+RUN git clone https://github.com/bertbaron/logspout.git && \
+    cd logspout && \
+    git checkout ${LOGSPOUT_HASSIO_REF}
 WORKDIR /go/src/github.com/bertbaron/logspout
 
 # for local development, comment out before commit!
