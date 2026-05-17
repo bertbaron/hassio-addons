@@ -1,5 +1,5 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
-name: Logspout addon (edge)
+name: Logspout (edge)
 version: "036f182"
 image: "ghcr.io/bertbaron/{arch}-addon-logspout"
 slug: logspout
