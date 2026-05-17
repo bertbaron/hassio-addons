@@ -96,7 +96,7 @@ git -C "$SCRIPT_DIR" push origin develop
 
 echo ""
 echo "✅ Released $VERSION!"
-echo "   - main pushed → CI will publish ghcr.io/bertbaron/{arch}-addon-logspout:$VERSION"
+echo "   - main pushed → CI will publish ghcr.io/bertbaron/logspout:$VERSION"
 echo "   - develop restored to edge state"
 echo ""
 echo "Next steps:"
