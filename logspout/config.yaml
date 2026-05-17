@@ -1,4 +1,5 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
+# Edge build: version is auto-bumped to the short git SHA by the CI workflow
 name: Logspout (edge)
 version: "develop"
 image: "ghcr.io/bertbaron/{arch}-addon-logspout"
