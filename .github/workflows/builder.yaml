@@ -4,6 +4,9 @@ env:
   BUILD_ARGS: "--test"
   MONITORED_FILES: "build.yaml config.yaml Dockerfile rootfs"
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -84,13 +87,24 @@ jobs:
           if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
              echo "build_arch=true" >> $GITHUB_OUTPUT;
              echo "image=$(echo ${{ steps.info.outputs.image }} | cut -d'/' -f3)" >> $GITHUB_OUTPUT;
-             if [[ -z "${{ github.head_ref }}" ]] && [[ "${{ github.event_name }}" == "push" ]] && [[ "${{ github.ref_name }}" == "main" || "${{ github.ref_name }}" == "develop" ]]; then
-                 echo "BUILD_ARGS=" >> $GITHUB_ENV;
+             if [[ -z "${{ github.head_ref }}" ]] && [[ "${{ github.event_name }}" == "push" ]]; then
+                 if [[ "${{ github.ref_name }}" == "main" ]]; then
+                     echo "BUILD_ARGS=" >> $GITHUB_ENV;
+                 elif [[ "${{ github.ref_name }}" == "develop" ]]; then
+                     echo "BUILD_ARGS=--no-latest" >> $GITHUB_ENV;
+                 fi
              fi
            else
              echo "${{ matrix.arch }} is not a valid arch for ${{ matrix.addon }}, skipping build";
              echo "build_arch=false" >> $GITHUB_OUTPUT;
           fi
+
+      - name: Bump version to git SHA for edge builds
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        run: |
+          SHORT_SHA="${GITHUB_SHA:0:7}"
+          sed -i "s/^version:.*$/version: \"${SHORT_SHA}\"/" "${{ matrix.addon }}/config.yaml"
+          echo "Bumped ${{ matrix.addon }}/config.yaml version to ${SHORT_SHA}"
 
       - name: Login to GitHub Container Registry
         if: env.BUILD_ARGS != '--test'
@@ -111,3 +125,15 @@ jobs:
             --image "${{ steps.check.outputs.image }}" \
             --docker-hub "ghcr.io/${{ github.repository_owner }}" \
             --addon
+
+      - name: Commit version bump to develop
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop' && matrix.arch == 'amd64' && steps.check.outputs.build_arch == 'true'
+        run: |
+          SHORT_SHA="${GITHUB_SHA:0:7}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "${{ matrix.addon }}/config.yaml"
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(edge): bump ${{ matrix.addon }} version to ${SHORT_SHA}"
+            git push origin develop
+          fi
