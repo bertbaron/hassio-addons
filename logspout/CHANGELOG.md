@@ -1,5 +1,16 @@
 <!-- https://developers.home-assistant.io/docs/apps/presentation#keeping-a-changelog -->
 
+## 1.11.0
+### ✨ New features
+- ✨ Switched to a single multi-arch image, published as `ghcr.io/bertbaron/logspout`.
+- ✨ Updated the repository terminology and docs from add-on to app to match Home Assistant's rebranding.
+
+### 🛠 Change in build setup
+- 🛠 Replaced the old per-arch build setup with the new Home Assistant multi-arch builder workflow.
+
+### ⬆️ Dependency updates
+- ⬆️ Update the Logspout build metadata to `hassio-8`.
+
 ## 1.10.0
 ### 🗑️ Removed architectures
 - 🗑️ Dropped support for armhf, armv7, and i386 architectures. Home Assistant stopped building base images for these architectures ([home-assistant/docker-base#324](https://github.com/home-assistant/docker-base/pull/324)).
