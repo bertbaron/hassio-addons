@@ -3,15 +3,12 @@ ARG BUILD_FROM=ghcr.io/home-assistant/base:3.22
 
 FROM golang:1.26.3-alpine3.22 AS build
 LABEL maintainer="bertusbaron@gmail.com"
-ENV LOGSPOUT_HASSIO_VERSION='hassio-7'
-ARG LOGSPOUT_HASSIO_REF=036f18213f99a0745ddc2106fe945f3be6ab8c7c
+ENV LOGSPOUT_HASSIO_VERSION='hassio-8'
 
 WORKDIR /go/src/github.com/bertbaron/
 
 RUN apk add --no-cache git
-RUN git clone https://github.com/bertbaron/logspout.git && \
-    cd logspout && \
-    git checkout ${LOGSPOUT_HASSIO_REF}
+RUN git clone --depth 1 https://github.com/bertbaron/logspout.git -b ${LOGSPOUT_HASSIO_VERSION}
 WORKDIR /go/src/github.com/bertbaron/logspout
 
 # for local development, comment out before commit!
