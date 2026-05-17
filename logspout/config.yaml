@@ -1,4 +1,4 @@
-# https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
+# https://developers.home-assistant.io/docs/apps/configuration#app-configuration
 # Edge build: version is auto-bumped to the short git SHA by the CI workflow
 name: Logspout (edge)
 version: "0f630bf"

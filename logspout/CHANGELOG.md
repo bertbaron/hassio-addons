@@ -1,4 +1,4 @@
-<!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
+<!-- https://developers.home-assistant.io/docs/apps/presentation#keeping-a-changelog -->
 
 ## 1.10.0
 ### 🗑️ Removed architectures

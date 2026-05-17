@@ -91,11 +91,11 @@ jobs:
             ${{ needs.prepare.outputs.version }}
             ${{ github.ref_name == 'main' && 'latest' || '' }}
           labels: |
-            io.hass.type=addon
+            io.hass.type=app
             io.hass.name=${{ needs.prepare.outputs.name }}
             io.hass.description=${{ needs.prepare.outputs.description }}
             org.opencontainers.image.title=Home Assistant Add-on: Logspout
-            org.opencontainers.image.description=Logspout addon for sending HA logs to remote logging systems.
+            org.opencontainers.image.description=Logspout app for sending HA logs to remote logging systems.
             org.opencontainers.image.source=https://github.com/bertbaron/hassio-addons/logspout
             org.opencontainers.image.licenses=Apache License 2.0
           push: ${{ inputs.publish }}

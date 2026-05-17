@@ -1,4 +1,4 @@
-# My Home Assistant add-on repository
+# My Home Assistant app repository
 
 ![update-badge](https://img.shields.io/github/last-commit/bertbaron/hassio-addons?label=last%20update)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9c6cf10bdbba45ecb202d7f579b5be0e)](https://www.codacy.com/gh/bertbaron/hassio-addons/dashboard?utm_source=github.com&utm_medium=referral&utm_content=bertbaron/hassio-addons&utm_campaign=Badge_Grade)
@@ -30,7 +30,7 @@ https://github.com/bertbaron/hassio-addons#develop
 
 The `develop` branch publishes a pre-built `edge` Docker image on every push.
 Since the version is always `edge`, Home Assistant will not automatically detect
-updates — reinstall the add-on after a new push to pick up the latest changes.
+updates — reinstall the app after a new push to pick up the latest changes.
 
 ## Releasing
 
@@ -46,17 +46,17 @@ The script validates the changelog, sets the version, merges `develop` → `main
 main (triggering the CI release build), then automatically restores `develop` to the
 `edge` state.
 
-## Add-ons
+## Apps
 
-This repository contains the following add-ons
+This repository contains the following apps
 
-### [Logspout add-on](./logspout)
+### [Logspout app](./logspout)
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
 ![privileged][privileged-shield]
 
-_Logspout  add-on for sending Home Assistant logs to remote log management systems._
+_Logspout app for sending Home Assistant logs to remote log management systems._
 
 <!--
 
