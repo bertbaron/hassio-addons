@@ -9,6 +9,7 @@
 - 🛠 Replaced the old per-arch build setup with the new Home Assistant multi-arch builder workflow.
 
 ### ⬆️ Dependency updates
+- ⬆️ Update the upstream Logspout fork from `hassio-7` to `hassio-8` (Go 1.22, dependency updates, new unit and integration tests, lint cleanup).
 - ⬆️ Update the Logspout build metadata to `hassio-8`.
 
 ## 1.10.0
