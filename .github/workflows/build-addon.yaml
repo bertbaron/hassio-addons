@@ -1,0 +1,147 @@
+name: Build Add-on
+
+on:
+  workflow_call:
+    inputs:
+      addon:
+        description: Directory name of the add-on to build
+        required: true
+        type: string
+      publish:
+        description: Whether to push images to the registry
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  prepare:
+    name: Prepare
+    runs-on: ubuntu-latest
+    outputs:
+      architectures: ${{ steps.info.outputs.architectures }}
+      build_matrix: ${{ steps.matrix.outputs.matrix }}
+      image_name: ${{ steps.normalize.outputs.image_name }}
+      registry_prefix: ${{ steps.normalize.outputs.registry_prefix }}
+      version: ${{ steps.normalize.outputs.version }}
+      name: ${{ steps.normalize.outputs.name }}
+      description: ${{ steps.normalize.outputs.description }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6.0.2
+
+      - name: Bump version for edge builds
+        if: inputs.publish && github.ref_name == 'develop'
+        run: |
+          SHORT_SHA="${GITHUB_SHA:0:7}"
+          sed -i "s/^version:.*$/version: \"${SHORT_SHA}\"/" "${{ inputs.addon }}/config.yaml"
+          echo "Bumped ${{ inputs.addon }}/config.yaml version to ${SHORT_SHA}"
+
+      - name: Get add-on information
+        id: info
+        uses: home-assistant/actions/helpers/info@master
+        with:
+          path: "./${{ inputs.addon }}"
+
+      - name: Normalize add-on information
+        id: normalize
+        run: |
+          image=${{ steps.info.outputs.image }}
+          echo "image_name=${image##*/}" >> "$GITHUB_OUTPUT"
+          echo "registry_prefix=${image%/*}" >> "$GITHUB_OUTPUT"
+          version=${{ steps.info.outputs.version }}
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          name=${{ steps.info.outputs.name }}
+          echo "name=${name}" >> "$GITHUB_OUTPUT"
+          description=${{ steps.info.outputs.description }}
+          echo "description=${description}" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare build matrix
+        id: matrix
+        uses: home-assistant/builder/actions/prepare-multi-arch-matrix@2026.03.2
+        with:
+          architectures: ${{ steps.info.outputs.architectures }}
+          image-name: ${{ steps.normalize.outputs.image_name }}
+          registry-prefix: ${{ steps.normalize.outputs.registry_prefix }}
+
+  build:
+    name: Build ${{ matrix.arch }} image
+    needs: prepare
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.build_matrix) }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Build image
+        uses: home-assistant/builder/actions/build-image@2026.03.2
+        with:
+          arch: ${{ matrix.arch }}
+          container-registry-password: ${{ secrets.GITHUB_TOKEN }}
+          context: "./${{ inputs.addon }}"
+          image: ${{ matrix.image }}
+          image-tags: |
+            ${{ needs.prepare.outputs.version }}
+            ${{ github.ref_name == 'main' && 'latest' || '' }}
+          labels: |
+            io.hass.type=addon
+            io.hass.name=${{ needs.prepare.outputs.name }}
+            io.hass.description=${{ needs.prepare.outputs.description }}
+            org.opencontainers.image.title=Home Assistant Add-on: Logspout
+            org.opencontainers.image.description=Logspout addon for sending HA logs to remote logging systems.
+            org.opencontainers.image.source=https://github.com/bertbaron/hassio-addons/logspout
+            org.opencontainers.image.licenses=Apache License 2.0
+          push: ${{ inputs.publish }}
+          version: ${{ needs.prepare.outputs.version }}
+
+  manifest:
+    name: Publish multi-arch manifest
+    needs: [prepare, build]
+    if: inputs.publish
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      packages: write
+    steps:
+      - name: Publish multi-arch manifest
+        uses: home-assistant/builder/actions/publish-multi-arch-manifest@2026.03.2
+        with:
+          architectures: ${{ needs.prepare.outputs.architectures }}
+          container-registry-password: ${{ secrets.GITHUB_TOKEN }}
+          image-name: ${{ needs.prepare.outputs.image_name }}
+          image-tags: |
+            ${{ needs.prepare.outputs.version }}
+            ${{ github.ref_name == 'main' && 'latest' || '' }}
+          registry-prefix: ${{ needs.prepare.outputs.registry_prefix }}
+
+  commit-version:
+    name: Commit version bump
+    needs: [prepare, manifest]
+    if: inputs.publish && github.ref_name == 'develop'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6.0.2
+        with:
+          ref: develop
+
+      - name: Commit and push version bump
+        run: |
+          SHORT_SHA="${GITHUB_SHA:0:7}"
+          sed -i "s/^version:.*$/version: \"${SHORT_SHA}\"/" "${{ inputs.addon }}/config.yaml"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "${{ inputs.addon }}/config.yaml"
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(edge): bump ${{ inputs.addon }} version to ${SHORT_SHA}"
+            git push origin develop
+          fi
