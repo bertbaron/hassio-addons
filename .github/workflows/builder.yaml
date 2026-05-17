@@ -63,8 +63,6 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.init.outputs.changed == 'true'
     name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
-    permissions:
-      contents: write
     strategy:
       matrix:
         addon: ${{ fromJson(needs.init.outputs.changed_addons) }}
@@ -73,13 +71,6 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v6.0.2
-
-      - name: Bump version to git SHA on develop branch
-        if: github.event_name == 'push' && github.ref_name == 'develop' && matrix.arch == 'amd64'
-        run: |
-          SHORT_SHA="${GITHUB_SHA:0:7}"
-          sed -i "s/^version:.*$/version: \"${SHORT_SHA}\"/" "${{ matrix.addon }}/config.yaml"
-          echo "Bumped ${{ matrix.addon }}/config.yaml version to ${SHORT_SHA}"
 
       - name: Get information
         id: info
@@ -120,14 +111,3 @@ jobs:
             --image "${{ steps.check.outputs.image }}" \
             --docker-hub "ghcr.io/${{ github.repository_owner }}" \
             --addon
-
-      - name: Commit updated config.yaml back to develop
-        if: github.event_name == 'push' && github.ref_name == 'develop' && matrix.arch == 'amd64' && steps.check.outputs.build_arch == 'true'
-        run: |
-          SHORT_SHA="${GITHUB_SHA:0:7}"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "${{ matrix.addon }}/config.yaml"
-          git diff --cached --quiet || \
-            git commit -m "chore: bump ${{ matrix.addon }} version to ${SHORT_SHA} [skip ci]" && \
-            git push origin develop
