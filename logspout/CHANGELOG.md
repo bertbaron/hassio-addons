@@ -1,16 +1,29 @@
 <!-- https://developers.home-assistant.io/docs/apps/presentation#keeping-a-changelog -->
 
 ## 1.11.0
-### ✨ New features
-- ✨ Switched to a single multi-arch image, published as `ghcr.io/bertbaron/logspout`.
-- ✨ Updated the repository terminology and docs from add-on to app to match Home Assistant's rebranding.
+
+### 🔭 Roadmap: journald as log source (replacing Docker API)
+
+First of all, thanks to all users. I'm happy to see a growing user base that I'm able to support with the limited time available.
+
+So far I mostly created maintenance releases with some small features here and there. In the coming period you can expect some more releases however working towards a change in the log source. 
+
+Currently, the app reads logs from the Docker API, which requires access to the Docker socket. While the app is perfectly safe to use, this prevents the app from running in protection mode and this rightly results in a rating of 1 because Home Assistant cannot guarantee safety. For a long time I have been thinking about a change by using the **systemd-journald** instead of the Docker API. This would allow the app to run in protection mode and improve the security rating. I finally decided to go for this change, and this is the first release in the process of making this change.
+
+The transition will be gradual and non-breaking: we will start by modernizing the project setup, then introducing journal support, enabling it in protected mode, and then, only when we are confident that this will not affect the users, remove the Docker API support.
+
+💬 **Does your setup still need the Docker API? Let us know in the discussion:**  
+[Roadmap: switching from Docker API to journald — will this affect you?](https://github.com/bertbaron/hassio-addons/discussions/102)
+
+### 🔄 Internal changes
+- 🔄 Switched to a single multi-arch image, published as `ghcr.io/bertbaron/logspout`.
+- 🔄 Updated the repository terminology and docs from add-on to app to match Home Assistant's rebranding.
 
 ### 🛠 Change in build setup
 - 🛠 Replaced the old per-arch build setup with the new Home Assistant multi-arch builder workflow.
 
 ### ⬆️ Dependency updates
-- ⬆️ Update the upstream Logspout fork from `hassio-7` to `hassio-8` (Go 1.22, dependency updates, new unit and integration tests, lint cleanup).
-- ⬆️ Update the Logspout build metadata to `hassio-8`.
+- ⬆️ Update the Logspout build metadata to `hassio-8`, which is focused on dependency updates and test improvements.
 
 ## 1.10.0
 ### 🗑️ Removed architectures
