@@ -1,7 +1,7 @@
 # https://developers.home-assistant.io/docs/apps/configuration#app-configuration
 # Edge build: version is auto-bumped to the short git SHA by the CI workflow
 name: Logspout (edge)
-version: "edge"
+version: "061f353"
 image: "ghcr.io/bertbaron/logspout"
 slug: logspout
 description: "Send HA logging to remote log management systems"
