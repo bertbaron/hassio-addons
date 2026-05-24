@@ -10,7 +10,9 @@ So far I mostly created maintenance releases with some small features here and t
 
 Currently, the app reads logs from the Docker API, which requires access to the Docker socket. While the app is perfectly safe to use, this prevents the app from running in protection mode and this rightly results in a rating of 1 because Home Assistant cannot guarantee safety. For a long time I have been thinking about a change by using the **systemd-journald** instead of the Docker API. This would allow the app to run in protection mode and improve the security rating. I finally decided to go for this change, and this is the first release in the process of making this change.
 
-The transition will be gradual and non-breaking: we will start by modernizing the project setup, then introducing journal support, enabling it in protected mode, and then, only when we are confident that this will not affect the users, remove the Docker API support.
+The transition will be gradual and non-breaking: we will start by modernizing the project setup in this release and probably one other. Then we will introduce journal support, enabling it in protected mode only. This allows users to test the new mode while the current behavior is still used when protection mode is disabled. This will already provide the biggest advantage: using the app with protection mode enabled.
+
+Only when we are confident that the new feature can fully replace the Docker API source, we will remove the Docker API support which should increase the security rating.
 
 💬 **Does your setup still need the Docker API? Let us know in the discussion:**  
 [Roadmap: switching from Docker API to journald — will this affect you?](https://github.com/bertbaron/hassio-addons/discussions/102)
