@@ -20,6 +20,8 @@ map:
 options:
   routes:
     - gelf://graylog.home:12201
+  hostname: homeassistant
+  strip_ansi: false
   env: []
 schema:
   routes:
