@@ -71,6 +71,10 @@ jobs:
       contents: read
       id-token: write
       packages: write
+    env:
+      LOGSPOUT_REPOSITORY: https://github.com/bertbaron/logspout.git
+      LOGSPOUT_REF: cb4dc6347647ec96ed2c6c3093589b8e87d62a3c
+      LOGSPOUT_SOURCE: git
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.prepare.outputs.build_matrix) }}
@@ -98,6 +102,10 @@ jobs:
             org.opencontainers.image.description=Logspout app for sending HA logs to remote logging systems.
             org.opencontainers.image.source=https://github.com/bertbaron/hassio-addons/logspout
             org.opencontainers.image.licenses=Apache License 2.0
+          build-args: |
+            LOGSPOUT_REPOSITORY=${{ env.LOGSPOUT_REPOSITORY }}
+            LOGSPOUT_REF=${{ env.LOGSPOUT_REF }}
+            LOGSPOUT_SOURCE=${{ env.LOGSPOUT_SOURCE }}
           push: ${{ inputs.publish }}
           version: ${{ needs.prepare.outputs.version }}
 
