@@ -55,9 +55,13 @@ Please consult the documentation of [Logspout](https://github.com/gliderlabs/log
 
 The hostname that will be send as part of the logs. Default is `homeassistant`.
 
+### Option `strip_ansi`
+
+Strip ANSI color codes from forwarded log messages before they are sent to the configured route. This is useful when the destination cannot handle colored terminal output cleanly.
+
 ### Option `env`
 
-Envirionment variables passed to Logspout when more advanced options are needed which are not (yet) available as app options. For example:
+Environment variables passed to Logspout when more advanced options are needed which are not (yet) available as app options. For example:
 
 ```yaml
 env:

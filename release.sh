@@ -27,41 +27,123 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG="$SCRIPT_DIR/logspout/config.yaml"
 CHANGELOG="$SCRIPT_DIR/logspout/CHANGELOG.md"
+EDGE_SUFFIX=" (edge)"
+
+die() {
+    echo "Error: $*" >&2
+    exit 1
+}
+
+get_yaml_value() {
+    local key="$1"
+    local line
+
+    line="$(grep -E "^${key}:" "$CONFIG" | head -n1 || true)"
+    [[ -n "$line" ]] || die "missing '$key' in $CONFIG"
+
+    printf '%s\n' "$line" | sed -E "s/^${key}:[[:space:]]*//; s/^\"(.*)\"$/\1/"
+}
+
+set_yaml_value() {
+    local key="$1"
+    local value="$2"
+    local quote="${3:-false}"
+    local rendered_value="$value"
+    local tmp_file
+
+    if [[ "$quote" == "true" ]]; then
+        rendered_value="\"$value\""
+    fi
+
+    tmp_file="$(mktemp "${TMPDIR:-/tmp}/release-config.XXXXXX")"
+
+    if ! awk -v key="$key" -v value="$rendered_value" '
+        BEGIN { updated = 0 }
+        $0 ~ ("^" key ":") {
+            print key ": " value
+            updated = 1
+            next
+        }
+        { print }
+        END {
+            if (!updated) {
+                exit 1
+            }
+        }
+    ' "$CONFIG" > "$tmp_file"; then
+        rm -f "$tmp_file"
+        die "failed to update '$key' in $CONFIG"
+    fi
+
+    mv "$tmp_file" "$CONFIG"
+}
+
+assert_yaml_value() {
+    local key="$1"
+    local expected="$2"
+    local actual
+
+    actual="$(get_yaml_value "$key")"
+    [[ "$actual" == "$expected" ]] || die "expected '$key' to be '$expected', got '$actual'"
+}
+
+is_edge_version() {
+    local version="$1"
+
+    [[ "$version" == "edge" || "$version" =~ ^[0-9a-f]{7}$ ]]
+}
 
 # --- Precondition checks ---
 
 CURRENT_BRANCH="$(git -C "$SCRIPT_DIR" rev-parse --abbrev-ref HEAD)"
 if [[ "$CURRENT_BRANCH" != "develop" ]]; then
-    echo "Error: must be on the 'develop' branch (currently on '$CURRENT_BRANCH')"
-    exit 1
+    die "must be on the 'develop' branch (currently on '$CURRENT_BRANCH')"
 fi
 
-if ! git -C "$SCRIPT_DIR" diff --quiet || ! git -C "$SCRIPT_DIR" diff --cached --quiet; then
-    echo "Error: working tree is not clean. Commit or stash your changes first."
-    exit 1
+if [[ -n "$(git -C "$SCRIPT_DIR" status --short --untracked-files=normal)" ]]; then
+    die "working tree is not clean. Commit, stash, or remove your changes first."
 fi
 
 # Check CHANGELOG has a ## <version> heading at the top (after the comment line)
 if ! grep -qE "^## $VERSION$" "$CHANGELOG"; then
-    echo "Error: CHANGELOG.md does not contain a '## $VERSION' section."
-    echo "Add a changelog entry for $VERSION before releasing."
-    exit 1
+    die "CHANGELOG.md does not contain a '## $VERSION' section.
+Add a changelog entry for $VERSION before releasing."
 fi
 
 # Check the first version heading in the changelog IS this version (not an older one)
 FIRST_VERSION=$(grep -Em1 "^## [0-9]" "$CHANGELOG" | sed 's/## //')
 if [[ "$FIRST_VERSION" != "$VERSION" ]]; then
-    echo "Error: the first version in CHANGELOG.md is '$FIRST_VERSION', expected '$VERSION'."
-    echo "Make sure the $VERSION section is at the top of the changelog."
-    exit 1
+    die "the first version in CHANGELOG.md is '$FIRST_VERSION', expected '$VERSION'.
+Make sure the $VERSION section is at the top of the changelog."
 fi
+
+echo "==> Verifying local branches are up to date"
+git -C "$SCRIPT_DIR" fetch origin main develop
+
+LOCAL_DEVELOP="$(git -C "$SCRIPT_DIR" rev-parse develop)"
+REMOTE_DEVELOP="$(git -C "$SCRIPT_DIR" rev-parse origin/develop)"
+[[ "$LOCAL_DEVELOP" == "$REMOTE_DEVELOP" ]] || die "local develop is not in sync with origin/develop. Pull or push develop before releasing."
+
+LOCAL_MAIN="$(git -C "$SCRIPT_DIR" rev-parse main)"
+REMOTE_MAIN="$(git -C "$SCRIPT_DIR" rev-parse origin/main)"
+[[ "$LOCAL_MAIN" == "$REMOTE_MAIN" ]] || die "local main is not in sync with origin/main. Pull or push main before releasing."
+
+EDGE_NAME="$(get_yaml_value name)"
+[[ "$EDGE_NAME" == *"$EDGE_SUFFIX" ]] || die "expected develop config name to end with '$EDGE_SUFFIX', got '$EDGE_NAME'"
+
+RELEASE_NAME="${EDGE_NAME%"$EDGE_SUFFIX"}"
+[[ -n "$RELEASE_NAME" && "$RELEASE_NAME" != "$EDGE_NAME" ]] || die "failed to derive the release add-on name from '$EDGE_NAME'"
+
+CURRENT_VERSION="$(get_yaml_value version)"
+is_edge_version "$CURRENT_VERSION" || die "expected develop config version to be 'edge' or the CI-written short SHA, got '$CURRENT_VERSION'"
 
 echo "==> Releasing version $VERSION"
 
 # --- Step 1: Update config.yaml on develop ---
-sed -i '' "s/^version: .*/version: \"$VERSION\"/" "$CONFIG"
-# Also restore the add-on name to the non-edge version for main
-sed -i '' 's/^name: Logspout addon (edge)/name: Logspout addon/' "$CONFIG"
+set_yaml_value version "$VERSION" true
+set_yaml_value name "$RELEASE_NAME"
+assert_yaml_value version "$VERSION"
+assert_yaml_value name "$RELEASE_NAME"
 
 git -C "$SCRIPT_DIR" add "$CONFIG"
 git -C "$SCRIPT_DIR" commit -m "chore: prepare release $VERSION
@@ -83,8 +165,10 @@ git -C "$SCRIPT_DIR" push origin main
 echo "==> Restoring develop to edge state"
 git -C "$SCRIPT_DIR" checkout develop
 
-sed -i '' "s/^version: .*/version: \"edge\"/" "$CONFIG"
-sed -i '' 's/^name: Logspout addon$/name: Logspout addon (edge)/' "$CONFIG"
+set_yaml_value version "edge" true
+set_yaml_value name "$EDGE_NAME"
+assert_yaml_value version "edge"
+assert_yaml_value name "$EDGE_NAME"
 
 git -C "$SCRIPT_DIR" add "$CONFIG"
 git -C "$SCRIPT_DIR" commit -m "chore: back to edge after release $VERSION

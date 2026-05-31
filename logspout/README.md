@@ -10,6 +10,8 @@ App providing [Logspout](https://github.com/gliderlabs/logspout), including the 
 
 Logspout collects logs using the Docker API, forwarding them to a choice of destinations using, amongst others, the syslog or GELF protocol. The destination can be for example a logging service like Papertrail or Loggly, or a local running Elasticsearch or Graylog instance.
 
+By default, builds use the local checkout in `logspout/local/logspout`. CI switches to `LOGSPOUT_SOURCE=git` and records the upstream Logspout version in two parts: `LOGSPOUT_VERSION` keeps the readable tag, while `LOGSPOUT_REF` pins the expected commit SHA. CI verifies that the tag still resolves to that SHA before the image build starts.
+
 Because Logspout requires access to the Docker API, protection mode has to be disabled. Access to the Docker API virtually gives access to the whole system, resulting in a rating of 1 for this app. Logspout only uses the API to read container properties and the stdout/stderr output of the containers.
 
 # Installation
