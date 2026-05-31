@@ -73,7 +73,7 @@ jobs:
       packages: write
     env:
       LOGSPOUT_REPOSITORY: https://github.com/bertbaron/logspout.git
-      LOGSPOUT_REF: cb4dc6347647ec96ed2c6c3093589b8e87d62a3c
+      LOGSPOUT_REF: hassio-9
       LOGSPOUT_SOURCE: git
     strategy:
       fail-fast: false
