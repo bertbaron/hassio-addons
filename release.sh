@@ -87,6 +87,12 @@ assert_yaml_value() {
     [[ "$actual" == "$expected" ]] || die "expected '$key' to be '$expected', got '$actual'"
 }
 
+is_edge_version() {
+    local version="$1"
+
+    [[ "$version" == "edge" || "$version" =~ ^[0-9a-f]{7}$ ]]
+}
+
 # --- Precondition checks ---
 
 CURRENT_BRANCH="$(git -C "$SCRIPT_DIR" rev-parse --abbrev-ref HEAD)"
@@ -122,14 +128,14 @@ LOCAL_MAIN="$(git -C "$SCRIPT_DIR" rev-parse main)"
 REMOTE_MAIN="$(git -C "$SCRIPT_DIR" rev-parse origin/main)"
 [[ "$LOCAL_MAIN" == "$REMOTE_MAIN" ]] || die "local main is not in sync with origin/main. Pull or push main before releasing."
 
-CURRENT_VERSION="$(get_yaml_value version)"
-[[ "$CURRENT_VERSION" == "edge" ]] || die "expected develop config version to be 'edge', got '$CURRENT_VERSION'"
-
 EDGE_NAME="$(get_yaml_value name)"
 [[ "$EDGE_NAME" == *"$EDGE_SUFFIX" ]] || die "expected develop config name to end with '$EDGE_SUFFIX', got '$EDGE_NAME'"
 
 RELEASE_NAME="${EDGE_NAME%"$EDGE_SUFFIX"}"
 [[ -n "$RELEASE_NAME" && "$RELEASE_NAME" != "$EDGE_NAME" ]] || die "failed to derive the release add-on name from '$EDGE_NAME'"
+
+CURRENT_VERSION="$(get_yaml_value version)"
+is_edge_version "$CURRENT_VERSION" || die "expected develop config version to be 'edge' or the CI-written short SHA, got '$CURRENT_VERSION'"
 
 echo "==> Releasing version $VERSION"
 
