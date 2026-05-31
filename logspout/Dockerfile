@@ -1,5 +1,6 @@
 # Minimal runtime image for the Home Assistant app
 ARG LOGSPOUT_REPOSITORY=https://github.com/bertbaron/logspout.git
+ARG LOGSPOUT_VERSION=
 ARG LOGSPOUT_REF=
 ARG LOGSPOUT_SOURCE=local
 ARG BUILD_FROM=alpine:3.22
@@ -7,6 +8,7 @@ ARG BUILD_FROM=alpine:3.22
 FROM golang:1.26.3-alpine3.22 AS build
 LABEL maintainer="bertusbaron@gmail.com"
 ARG LOGSPOUT_REPOSITORY
+ARG LOGSPOUT_VERSION
 ARG LOGSPOUT_REF
 ARG LOGSPOUT_SOURCE
 RUN apk add --no-cache git
@@ -21,7 +23,16 @@ RUN set -eux; \
 			cp -a /context/local/logspout /src/logspout; \
 			;; \
 		git) \
-			if [ -n "$LOGSPOUT_REF" ]; then \
+			if [ -n "$LOGSPOUT_VERSION" ]; then \
+				git clone --depth 1 --branch "$LOGSPOUT_VERSION" "$LOGSPOUT_REPOSITORY" /src/logspout; \
+				if [ -n "$LOGSPOUT_REF" ]; then \
+					resolved_ref="$(git -C /src/logspout rev-parse HEAD)"; \
+					if [ "$resolved_ref" != "$LOGSPOUT_REF" ]; then \
+						echo "Resolved $LOGSPOUT_VERSION to $resolved_ref, expected $LOGSPOUT_REF" >&2; \
+						exit 1; \
+					fi; \
+				fi; \
+			elif [ -n "$LOGSPOUT_REF" ]; then \
 				git clone --depth 1 --branch "$LOGSPOUT_REF" "$LOGSPOUT_REPOSITORY" /src/logspout || \
 				(git clone --depth 1 "$LOGSPOUT_REPOSITORY" /src/logspout && cd /src/logspout && git fetch --depth 1 origin "$LOGSPOUT_REF" && git checkout FETCH_HEAD); \
 			else \
