@@ -1,5 +1,14 @@
 <!-- https://developers.home-assistant.io/docs/apps/presentation#keeping-a-changelog -->
 
+## 1.12.0
+
+### 🐛 Bug fixes
+- 🐛 Fixed empty GELF messages being forwarded to Graylog, which could trigger `has empty mandatory "short_message" field` errors as reported in issue #103.
+
+### 🔄 Internal changes
+- 🔄 Replaced the old shell-based startup wrapper with a native Home Assistant launcher inside Logspout. The launcher now reads `/data/options.json` directly, validates that `/run/docker.sock` is available, and starts Logspout without the previous bash/jq wrapper layer.
+- 🔄 Switched the app image to a minimal Alpine runtime that directly runs the statically linked launcher binary, eliminating the s6-overlay.
+
 ## 1.11.0
 
 ### 🔭 Roadmap: journald as log source (replacing Docker API)
