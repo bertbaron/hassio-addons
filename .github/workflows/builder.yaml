@@ -1,7 +1,7 @@
 name: Builder
 
 env:
-  MONITORED_FILES: ".dockerignore config.yaml Dockerfile local rootfs"
+  MONITORED_FILES: ".dockerignore config.yaml Dockerfile"
 
 on:
   push:
