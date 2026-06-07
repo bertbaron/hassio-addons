@@ -74,8 +74,8 @@ jobs:
     env:
       LOGSPOUT_REPOSITORY: https://github.com/bertbaron/logspout.git
       # Keep the readable release tag next to the immutable build pin.
-      LOGSPOUT_VERSION: hassio-9
-      LOGSPOUT_REF: cb4dc6347647ec96ed2c6c3093589b8e87d62a3c
+      LOGSPOUT_VERSION: hassio-10
+      LOGSPOUT_REF: 29f87757ac4db8f8fe2e749a5917a5e84793fea9
       LOGSPOUT_SOURCE: git
     strategy:
       fail-fast: false

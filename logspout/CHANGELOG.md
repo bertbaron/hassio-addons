@@ -1,5 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/apps/presentation#keeping-a-changelog -->
 
+## 1.12.1
+
+### 🐛 Bug fixes
+- 🐛 Fix hostname bug in Gelf and Loki adapters (regression from 1.12.0) where the hostname was left as literal `{{.Container.Config.Hostname}}` instead of the configured hostname.
+
 ## 1.12.0
 
 ### 🐛 Bug fixes
