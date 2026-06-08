@@ -27,7 +27,7 @@ jobs:
       description: ${{ steps.normalize.outputs.description }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v6.0.3
 
       - name: Bump version for edge builds
         if: inputs.publish && github.ref_name == 'develop'
@@ -82,7 +82,7 @@ jobs:
       matrix: ${{ fromJSON(needs.prepare.outputs.build_matrix) }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v6.0.3
         with:
           persist-credentials: false
 
@@ -159,7 +159,7 @@ jobs:
       contents: write
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v6.0.3
         with:
           ref: develop
 
