@@ -5,7 +5,7 @@ ARG LOGSPOUT_REF=
 ARG LOGSPOUT_SOURCE=local
 ARG BUILD_FROM=alpine:3.22
 
-FROM golang:1.26.3-alpine3.22 AS build
+FROM golang:1.26.4-alpine3.22 AS build
 LABEL maintainer="bertusbaron@gmail.com"
 ARG LOGSPOUT_REPOSITORY
 ARG LOGSPOUT_VERSION
