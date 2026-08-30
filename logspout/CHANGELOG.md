@@ -1,5 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/apps/presentation#keeping-a-changelog -->
 
+## 1.12.2
+
+### 🛠️ Maintenance
+- 🛠️ Updated the Home Assistant app manifest to use the current `homeassistant_config` mapping and removed the deprecated `advanced` field to avoid Supervisor deprecation warnings.
+
 ## 1.12.1
 
 ### 🐛 Bug fixes
