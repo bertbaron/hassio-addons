@@ -1,5 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/apps/presentation#keeping-a-changelog -->
 
+## 1.12.3
+
+### 🐛 Bug fixes
+- 🐛 Fixed version number
+
 ## 1.12.2
 
 ### 🛠️ Maintenance
