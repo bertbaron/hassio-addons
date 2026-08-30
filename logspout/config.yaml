@@ -11,11 +11,10 @@ arch:
   - amd64
 init: false
 startup: system
-advanced: true
 docker_api: true
 
 map:
-  - config
+  - type: homeassistant_config
 
 options:
   routes:
