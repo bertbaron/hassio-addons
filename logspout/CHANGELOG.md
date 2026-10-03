@@ -1,5 +1,14 @@
 <!-- https://developers.home-assistant.io/docs/apps/presentation#keeping-a-changelog -->
 
+## 1.13.0
+
+### 🚀 Features
+- 🚀 With protection mode enabled the app now reads container logs from the systemd journal instead of the Docker API. The forwarded fields stay the same, except `image_id`, `command` and `created` (and container labels), which are not available in the journal and are omitted. With protection mode disabled the Docker API is used as before.
+- ⚠️ Restart the app after changing the protection mode setting. The log source is chosen at startup.
+
+### 🛠️ Maintenance
+- 🛠️ The image is now based on Debian (`trixie-slim`) because reading the journal needs `libsystemd`.
+
 ## 1.12.3
 
 ### 🐛 Bug fixes

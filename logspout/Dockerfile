@@ -1,17 +1,20 @@
-# Minimal runtime image for the Home Assistant app
+# Runtime image for the Home Assistant app.
+# Debian is used because the journal log source needs libsystemd.
 ARG LOGSPOUT_REPOSITORY=https://github.com/bertbaron/logspout.git
 ARG LOGSPOUT_VERSION=
 ARG LOGSPOUT_REF=
 ARG LOGSPOUT_SOURCE=local
-ARG BUILD_FROM=alpine:3.22
+ARG BUILD_FROM=debian:trixie-slim
 
-FROM golang:1.26.4-alpine3.22 AS build
+FROM golang:1.26.4-trixie AS build
 LABEL maintainer="bertusbaron@gmail.com"
 ARG LOGSPOUT_REPOSITORY
 ARG LOGSPOUT_VERSION
 ARG LOGSPOUT_REF
 ARG LOGSPOUT_SOURCE
-RUN apk add --no-cache git
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends git libsystemd-dev \
+	&& rm -rf /var/lib/apt/lists/*
 WORKDIR /src
 
 COPY . /context
@@ -49,11 +52,14 @@ WORKDIR /src/logspout
 
 RUN go mod download
 
-ENV CGO_ENABLED=0
+# cgo is needed for the journal log source (libsystemd is loaded at runtime with dlopen)
+ENV CGO_ENABLED=1
 RUN go build -v -ldflags "-X main.Version=$(cat VERSION)" -o /out/logspout ./cmd/launcher
 
 FROM $BUILD_FROM
-RUN apk add --no-cache ca-certificates
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends ca-certificates libsystemd0 \
+	&& rm -rf /var/lib/apt/lists/*
 COPY --from=build /out/logspout /logspout
 
 CMD ["/logspout"]
