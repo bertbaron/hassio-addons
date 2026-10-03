@@ -136,8 +136,8 @@ class AddonRuntimeTests(unittest.TestCase):
 
         wait_for(assert_sink_output, 30, "forwarded syslog line")
 
-    def test_fails_clearly_without_docker_socket(self) -> None:
-        options_dir = Path(self.make_options_dir({"routes": ["raw+tcp://example:1514"]}))
+    def test_fails_clearly_without_docker_socket_and_journal(self) -> None:
+        options_dir = Path(self.make_options_dir({"routes": []}))
         container = self.run_container(
             "logspout-test-no-socket",
             [
@@ -148,7 +148,9 @@ class AddonRuntimeTests(unittest.TestCase):
         )
 
         wait_for(lambda: self.container_status(container) == "exited", 20, "launcher failure")
-        self.assertIn("docker socket not found", self.logs(container))
+        logs = self.logs(container)
+        self.assertIn("log source: journald", logs)
+        self.assertIn("no journal found", logs)
 
     def test_fails_clearly_for_invalid_options_json(self) -> None:
         options_dir = Path(self.make_options_dir(None, raw="{"))

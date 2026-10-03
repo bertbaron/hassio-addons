@@ -12,6 +12,7 @@ arch:
 init: false
 startup: system
 docker_api: true
+journald: true
 
 map:
   - type: homeassistant_config
