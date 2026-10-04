@@ -1,5 +1,23 @@
 <!-- https://developers.home-assistant.io/docs/apps/presentation#keeping-a-changelog -->
 
+## Unreleased
+
+### 🚀 Features
+- 🚀 Log levels: the app can now detect the real level of a log line (`debug`, `info`, `notice`, `warning`, `error`, `critical`) instead of only `info` (stdout) and `error` (stderr). The level is used by the GELF, syslog and Splunk outputs. Loki gets a `level` label only with `?level_label=true` on the route. This answers issue #75.
+- 🚀 New option `default_rules` (`off`, `latest` or `v1`) with ready-made rules for Home Assistant Core, the Supervisor and common apps. It is off unless you set it. `v1` is a preview until it is checked against more real logs.
+- 🚀 New option `exclude_containers` to leave containers out of all routes.
+- 🚀 Rule file `logspout.yaml` in the app config folder (`addon_configs/<slug>/`) for your own rules: classify, change, add fields to or drop messages, globally or for one route only. Routes can get a name with `#name`, for example `gelf://graylog.home:12201#graylog`. This answers discussion #102. Changes are loaded within a few seconds, an invalid file is ignored and the previous rules stay active. See DOCS.md for the format and examples.
+- 🚀 New web interface "Logspout" in the sidebar (administrators only) to edit, validate and test the rules and to watch the messages live.
+
+### 📝 Notes
+- 📝 Nothing changes unless you opt in with the options above or create the rule file. Without them the output of all adapters is the same as before.
+- ⚠️ The app always starts, also when a route name is not usable. An invalid fragment (not `A-Z a-z 0-9 _ . -`) is ignored, as before; you now get a warning in the log. A duplicate name, or a name equal to another route's default name, keeps all routes working with a warning. That name cannot be used as a target in the rule file. This also holds for routes from the routes API or `ROUTESPATH`: if they share a name, the target rules of that name are not applied to any of the routes with that name, including the configured one. The Playground and Live view do not show this case; the status shows the name as ambiguous. An invalid `name` in the routes API is ignored with a warning.
+- 📝 Routes now have a `name` (and `name_explicit`) in the output of `GET /routes` and in stored routes. The routes API accepts a `name` when you add a route.
+- 📝 Excluded containers also disappear from the `/logs` stream on port 80.
+- 📝 New `env` variables: `PIPELINE_FILE` (path of another rule file) and `DEBUG_PIPELINE=true` (logs a trace per message, noisy, limited to 50 lines per second). `DEFAULT_RULES` and `EXCLUDE_CONTAINERS` in `env` win over the app options. The app resets these four variables at start, so values set in other ways are ignored.
+- 📝 The app now maps its own config folder (`addon_config`, at `/config`) and has an Ingress panel. The Home Assistant config folder stays at `/homeassistant`, so existing certificate paths keep working.
+- 📝 While the app runs, the web interface keeps the last 500 messages in memory (up to about 8 MiB).
+
 ## 1.13.0
 
 ### 🚀 Features

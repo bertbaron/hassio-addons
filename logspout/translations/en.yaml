@@ -12,11 +12,11 @@ configuration:
     description: Remove ANSI color codes from log messages before they are sent.
   env:
     name: Environment variables
-    description: Extra environment variables for Logspout, for options that are not available as add-on options.
+    description: Extra environment variables for Logspout, for options that are not available as app options.
   default_rules:
     name: Default rules
     description: >-
-      Detect the log level of Home Assistant and common add-ons. off (default if not set),
+      Detect the log level of Home Assistant and common apps. off (default if not set),
       latest (follows the newest set when you update) or v1 (preview, may still change until a release note says it is final).
       Changes the level that is sent to your log system, so it is off until you choose.
   exclude_containers:
