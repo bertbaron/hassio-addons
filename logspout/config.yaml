@@ -31,3 +31,6 @@ schema:
   env:
     - name: str
       value: str
+  default_rules: list(off|latest|v1)?
+  exclude_containers:
+    - str?

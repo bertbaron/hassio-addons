@@ -72,6 +72,26 @@ env:
     value: rfc3164
 ```
 
+### Option `default_rules`
+
+Detects the log level of Home Assistant, its core containers and common add-ons, and sets it on the message. Without it, a message is `info` (stdout) or `error` (stderr).
+
+ * `off`: no detection. This is also what you get when the option is not set.
+ * `v1`: the first rule set. It is a preview: it may still change until a release note says it is final. After that it never changes.
+ * `latest`: the newest rule set. A new add-on version can change the levels that you receive.
+
+Default rules only set the level and extra fields. They never remove messages. Some outputs only use the level when it is set, so your log system can show different data after you switch this on. The Loki `level` label is not added automatically, use `?level_label=true` on the route.
+
+### Option `exclude_containers`
+
+Container names that are not sent to any route. Wildcards (`*`, `?`) are allowed. The container name is the Docker name, for example `homeassistant` or `addon_core_mosquitto`. Excluded containers also disappear from the HTTP `/logs` stream. Spaces around a name and empty entries are ignored. An invalid value is logged as an error and the option is ignored, so logging keeps working.
+
+```yaml
+exclude_containers:
+  - homeassistant
+  - addon_*_mosquitto
+```
+
 # Custom TLS certificate
 
 Custom certificates can be put in the Home Assistant config folder, which is mounted as `/config`.
