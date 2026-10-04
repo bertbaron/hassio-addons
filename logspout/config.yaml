@@ -13,6 +13,11 @@ init: false
 startup: system
 docker_api: true
 journald: true
+ingress: true
+ingress_port: 8099
+panel_icon: mdi:filter-variant
+panel_title: Logspout
+panel_admin: true
 
 map:
   - type: homeassistant_config
