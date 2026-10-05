@@ -8,6 +8,7 @@ on:
     branches:
       - main
       - develop
+      - "test/**"
   pull_request:
     branches:
       - main
@@ -68,7 +69,7 @@ jobs:
     uses: ./.github/workflows/build-addon.yaml
     with:
       addon: ${{ matrix.addon }}
-      publish: ${{ github.event_name == 'push' && (github.ref_name == 'main' || github.ref_name == 'develop') }}
+      publish: ${{ github.event_name == 'push' && (github.ref_name == 'main' || github.ref_name == 'develop' || startsWith(github.ref_name, 'test/')) }}
     secrets: inherit
     permissions:
       contents: write

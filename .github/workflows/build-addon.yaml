@@ -30,10 +30,13 @@ jobs:
         uses: actions/checkout@v7.0.1
 
       - name: Bump version for edge builds
-        if: inputs.publish && github.ref_name == 'develop'
+        if: inputs.publish && (github.ref_name == 'develop' || startsWith(github.ref_name, 'test/'))
         run: |
           SHORT_SHA="${GITHUB_SHA:0:7}"
           sed -i "s/^version:.*$/version: \"${SHORT_SHA}\"/" "${{ inputs.addon }}/config.yaml"
+          if [[ "${GITHUB_REF_NAME}" == test/* ]]; then
+            sed -i 's/^name: \(.*\) (edge)$/name: \1 (test)/' "${{ inputs.addon }}/config.yaml"
+          fi
           echo "Bumped ${{ inputs.addon }}/config.yaml version to ${SHORT_SHA}"
 
       - name: Get add-on information
@@ -74,8 +77,8 @@ jobs:
     env:
       LOGSPOUT_REPOSITORY: https://github.com/bertbaron/logspout.git
       # Keep the readable release tag next to the immutable build pin.
-      LOGSPOUT_VERSION: hassio-11
-      LOGSPOUT_REF: 50dc8aea60512c20b2f3d48bee5dff1ca19d8335
+      LOGSPOUT_VERSION: pipeline-poc
+      LOGSPOUT_REF: 2c5759ac3ea9c5dd2947151d50da77f90d978795
       LOGSPOUT_SOURCE: git
     strategy:
       fail-fast: false
@@ -153,7 +156,7 @@ jobs:
   commit-version:
     name: Commit version bump
     needs: [prepare, manifest]
-    if: inputs.publish && github.ref_name == 'develop'
+    if: inputs.publish && (github.ref_name == 'develop' || startsWith(github.ref_name, 'test/'))
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -161,16 +164,19 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v7.0.1
         with:
-          ref: develop
+          ref: ${{ github.ref_name }}
 
       - name: Commit and push version bump
         run: |
           SHORT_SHA="${GITHUB_SHA:0:7}"
           sed -i "s/^version:.*$/version: \"${SHORT_SHA}\"/" "${{ inputs.addon }}/config.yaml"
+          if [[ "${GITHUB_REF_NAME}" == test/* ]]; then
+            sed -i 's/^name: \(.*\) (edge)$/name: \1 (test)/' "${{ inputs.addon }}/config.yaml"
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add "${{ inputs.addon }}/config.yaml"
           if ! git diff --cached --quiet; then
             git commit -m "chore(edge): bump ${{ inputs.addon }} version to ${SHORT_SHA}"
-            git push origin develop
+            git push origin HEAD:${GITHUB_REF_NAME}
           fi
