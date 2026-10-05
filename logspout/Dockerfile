@@ -6,7 +6,7 @@ ARG LOGSPOUT_REF=
 ARG LOGSPOUT_SOURCE=local
 ARG BUILD_FROM=debian:trixie-slim
 
-FROM golang:1.26.4-trixie AS build
+FROM golang:1.27.1-trixie AS build
 LABEL maintainer="bertusbaron@gmail.com"
 ARG LOGSPOUT_REPOSITORY
 ARG LOGSPOUT_VERSION
