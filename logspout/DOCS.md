@@ -76,14 +76,14 @@ env:
 
 Custom certificates can be put in the Home Assistant config folder, which is mounted as `/config`.
 
-For example, to use a custom CA certificate, create the file `<configdir>/logspout/ca.pem` using for example the Studio Code Server plugin. Then set environment variable `LOGSPOUT_TLS_CA_CERTS=/config/logspout/ca.pem`: 
+For example, to use a custom CA certificate, create the file `<configdir>/logspout/ca.pem` using for example the Studio Code Server plugin. Then set environment variable `LOGSPOUT_TLS_CA_CERTS=/homeassistant/logspout/ca.pem`: 
 
 ```yaml
 routes:
   - syslog+tls://graylog.local:6514
 env:
   - name: LOGSPOUT_TLS_CA_CERTS
-    value: /config/logspout/ca.pem
+    value: /homeassistant/logspout/ca.pem
 ```      
 
 It is also possible to specify a client key for mutual TLS client authentication. See the [Logspout documentation](https://github.com/gliderlabs/logspout/blob/master/README.md) for more information.
