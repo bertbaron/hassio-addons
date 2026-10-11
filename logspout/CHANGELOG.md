@@ -1,6 +1,6 @@
 <!-- https://developers.home-assistant.io/docs/apps/presentation#keeping-a-changelog -->
 
-## Unreleased
+## 1.13.1
 
 ### 🐛 Bug fixes
 - 🐛 Fixed custom CA certificates (`LOGSPOUT_TLS_CA_CERTS`, `SSL_CERT_FILE`) set through the `env` option being ignored since 1.12.0. The TLS configuration is now loaded on first use instead of at startup. See [#114](https://github.com/bertbaron/hassio-addons/issues/114).
