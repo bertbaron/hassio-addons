@@ -5,6 +5,8 @@
 ### 🐛 Bug fixes
 - 🐛 Fixed custom CA certificates (`LOGSPOUT_TLS_CA_CERTS`, `SSL_CERT_FILE`) set through the `env` option being ignored since 1.12.0. The TLS configuration is now loaded on first use instead of at startup. See [#114](https://github.com/bertbaron/hassio-addons/issues/114).
 - 🐛 The documentation now uses the correct path `/homeassistant/logspout/ca.pem` for the custom CA file.
+- 🐛 With the journal log source, the startup output of the app itself (banner) is now forwarded, and no log lines are lost when the journal is reopened. See [#115](https://github.com/bertbaron/hassio-addons/issues/115).
+- 📝 Documented that the syslog `proc_id` is `-` with the journal log source, because the journal has no container process id.
 
 ## 1.13.0
 

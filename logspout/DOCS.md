@@ -8,7 +8,7 @@ Logspout collects container logs, forwarding it to a choice of destinations usin
 
 The log source depends on protection mode:
 
- * **Protection mode enabled** (default): logs are read from the systemd journal, which Home Assistant maps read-only into the app. This gives the app a better security rating. The journal does not contain all container properties, so the fields `image_id`, `command` and `created` and the container labels are not sent. Filtering on container labels and `LOGSPOUT=ignore` are not available either. Other fields, like the container id, container name and image name, are the same as with the Docker API.
+ * **Protection mode enabled** (default): logs are read from the systemd journal, which Home Assistant maps read-only into the app. This gives the app a better security rating. The journal does not contain all container properties, so the fields `image_id`, `command` and `created` and the container labels are not sent. The syslog `proc_id` is `-` because the container process id is not in the journal. Filtering on container labels and `LOGSPOUT=ignore` are not available either. Other fields, like the container id, container name and image name, are the same as with the Docker API.
  * **Protection mode disabled**: logs are read using the Docker API, which gives access to all container properties. Access to the Docker API virtually gives access to the whole system, resulting in a rating of 1 for this app. Logspout only uses the API to read container properties and the stdout/stderr output of the containers.
 
 # Installation
